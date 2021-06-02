@@ -1,0 +1,36 @@
+package com.kpi.controller;
+
+import com.kpi.data.InputDataUtility;
+import com.kpi.models.FacultativeSet;
+import com.kpi.view.FacultativeView;
+
+public class Controller{
+    FacultativeSet facultatives;  
+    FacultativeView view;   
+    InputDataUtility input;  
+
+    public void run() {
+        facultatives = new FacultativeSet();    
+        view = new FacultativeView();       
+        input = new InputDataUtility(); 
+        boolean b = false;
+      
+        while (true) {
+            view.showMenu(); 
+
+            switch(input.getIntValue()) {
+                case 1 : b = facultatives.selection(1, ""); break;
+                case 2 : view.showMessage(view.ENTER_TEACHER_NAME);
+                         b = facultatives.selection(2, input.getStringValue()); break;
+                case 3 : view.showMessage(view.ENTER_ELECTIVE);
+                         b = facultatives.selection(3, input.getStringValue()); break;
+                case 4 : return;
+            }
+
+            if(!b)
+                view.showMessage(" Данные не найдены.\n");  
+            else
+                view.showTable(facultatives.toString());
+        }
+    }
+}
